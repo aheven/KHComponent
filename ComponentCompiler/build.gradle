@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+    id 'kotlin-kapt'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+group = 'heven.holt.kcomponent'
+archivesBaseName = "kcomponent-compiler"
+
+dependencies {
+    implementation project(':ComponentApi')
+    implementation("com.google.auto.service:auto-service-annotations:1.0.1")
+    kapt 'com.google.auto.service:auto-service:1.0.1'
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.10-1.0.9")
+    implementation("com.squareup:kotlinpoet:1.13.2")
+    implementation("com.squareup:kotlinpoet-ksp:1.13.2")
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+}

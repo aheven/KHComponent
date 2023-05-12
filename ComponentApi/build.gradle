@@ -1,0 +1,34 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+}
+
+group = 'heven.holt.kcomponent'
+archivesBaseName = "kcomponent-annotation"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+}

@@ -1,0 +1,1 @@
+apply from: project.getRootProjectPath() + "/common_android_lib.gradle"

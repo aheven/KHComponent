@@ -1,0 +1,21 @@
+plugins {
+    id 'com.android.application'
+    id 'heven.holt.kcomponent.plugin'
+    id 'kotlin-android'
+    id 'com.google.devtools.ksp'
+}
+
+apply from: "../demo_module.gradle"
+
+ksp {
+    arg("ModuleName", "app1")
+}
+
+android {
+    namespace 'heven.holt.component.app1'
+}
+
+dependencies {
+    api project(':Demo:module-support')
+    api project(':Demo:module-user')
+}

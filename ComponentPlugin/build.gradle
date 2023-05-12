@@ -1,0 +1,42 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+    id 'org.gradle.kotlin.kotlin-dsl' version '4.0.6'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+group = 'heven.holt.kcomponent'
+archivesBaseName = 'kcomponent-plugin'
+version = "${versions.component_plugin_upload_version}"
+
+dependencies {
+    implementation 'com.android.tools.build:gradle:8.0.1'
+    implementation "com.joom.grip:grip:0.9.1"
+    implementation "org.javassist:javassist:3.26.0-GA"
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = archivesBaseName
+            version = version
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = "$rootDir/RepoKComponent"
+        }
+    }
+}
